@@ -1,0 +1,9 @@
+const path = require("path");
+
+module.exports = {
+  config: path.resolve(__dirname, "config", "configmigration.js"),
+  "migrations-path": path.resolve(__dirname, "database", "migrations"),
+  "seeders-path": path.resolve(__dirname, "database", "seeders")
+};
+
+// yarn sequelize migration:create --name=create-users

@@ -1,21 +1,28 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const app = express();
+import { MYSQL_SESSION_OPTIONS, APP_PORT } from "../config";
+import MySQLSessionStore from "express-mysql-session";
+import { createApp } from "./app";
 
-app.use(express.json());
-app.use(cors());
+const app = createApp(new MySQLSessionStore(MYSQL_SESSION_OPTIONS));
+app.listen(APP_PORT);
+console.log(`app is running at http://localhost:${APP_PORT}`);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Successfully loaded get route." });
-});
+// import db from '../models'
 
-app.post("/", (req, res) => {
-  const envVarValue = process.env.DUMMY_VALUE || "not found";
-  res.json({ message: "Post route successfully loaded", envVarValue });
-});
+// (async () => {
 
-const port = process.env.PORT || 3002;
-
-app.listen(port);
-console.log("app is running at http://localhost:" + port);
+//     // try {
+//     //     await connection.authenticate();
+//     //     console.log('Connection has been established successfully.');
+//     // } catch (error) {
+//     //     console.error('Unable to connect to the database:', error);
+//     // }
+//     // const app = createApp(new MySQLSessionStore(MYSQL_SESSION_OPTIONS));
+//     // app.listen(APP_PORT);
+//     // console.log(`app is running at http://localhost:${APP_PORT}`);
+//     // db.sequelize.sync().then(() => {
+//     //     app.listen(APP_PORT, () => {
+//     //         console.log(`app is running at http://localhost:${APP_PORT}`);
+//     //     });
+//     // })
+// }
+// )();
